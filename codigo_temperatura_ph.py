@@ -35,8 +35,8 @@ for ciclo in range(1, total_ciclos + 1):
     erro_sensor_temperatura = random.uniform(-0.5, 0.5)
     temperatura_com_erro = temperatura_atual + erro_sensor_temperatura
 
-    # Adiciona um erro de variação aleatório e aceitável no sensor de pH ao ligar e desligar os injetores (entre -0.2 e +0.2)
-    erro_sensor_ph = random.uniform(-0.2, 0.2)
+   # Ruído aleatório de leitura do eletrodo de pH (+- 0.05)
+    erro_sensor_ph = random.uniform(-0.05, 0.05)
     ph_com_erro = ph_atual + erro_sensor_ph
 
     print(
