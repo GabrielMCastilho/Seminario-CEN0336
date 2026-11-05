@@ -56,13 +56,13 @@ for ciclo in range(1, total_ciclos + 1):
     else:
         print("  -> Status: Temperatura adequada. Sistema estabilizado.")
 
-    # Lógica de controle do Biorreator (Atuadores: Injetores)
+    # Lógica de controle do Biorreator (Atuadores: Bombas de meio ácido ou alcalino)
     if ph_com_erro > setpoint_ph:
-        print("  -> Status: pH alto.\nINJETANDO 1 mL DE HCl")
+        print("  -> Status: Meio alcalino.\nINJETANDO 1 mL DE HCl")
         ph_atual -= random.uniform(0, 0.5)  # Abaixa aleatoriamente o pH em um intervalo de 0,5 por ciclo
     elif ph_com_erro < setpoint_ph:
         print(
-            "  -> Status: pH baixo.\nINJETANDO 1 mL DE NaOH"
+            "  -> Status: Meio ácido.\nINJETANDO 1 mL DE NaOH"
         )
         ph_atual += random.uniform(0, 0.5)  # Sobe o pH em 0,5 por ciclo
     else:
@@ -99,12 +99,13 @@ if not os.path.exists(nome_arquivo):
 #    with open(nome_arquivo, "r", encoding="utf-8") as arquivo:
 #        historico_biorreator = json.load(arquivo)
 
+# Se quiser sobreescrever um arquivo existente, executa esse código
 else:
     with open(nome_arquivo, "w", encoding="utf-8") as arquivo:
         print("Sobreescrevendo dados do arquivo", nome_arquivo)
         json.dump(historico_biorreator, arquivo, indent=4, ensure_ascii=False)
     
-# Exibe a lista final com todos os dicionários salvos
+# Exibe a lista final com todos os dicionários salvos no arquivo json
 print("Leitura finalizada")
 for registro in historico_biorreator:
     print(registro)
