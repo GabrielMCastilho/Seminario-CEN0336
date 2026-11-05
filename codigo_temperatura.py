@@ -3,22 +3,22 @@ import time
 from datetime import datetime
 
 # 1. Parâmetros fixos do sistema
-SETPOINT = 24.0  # Temperatura desejada (°C)
-INTERVALO_LEITURA = 10  # segundos
-TEMPO_TOTAL = 120  # 2 minutos em segundos
+setpoint_temperatura = 30.0  # Temperatura desejada (°C)
+setpoint_ph = 7 # pH desejado para o crescimento bacteriano 
+intervalo_leitura = 10  # segundos
+tempo_total = 120  # 2 minutos em segundos
 
 # 2. Variavel com o intervalo de temperatura inicial (18 a 30 °C)
-# Sorteamos a temperatura inicial da faixa
-temperatura_atual = random.randint(18, 30)
+# Sorteamos a temperatura inicial de inóculo ou inicio do funcionamento do controle automático do biorreator
+temperatura_atual = random.randint(15, 35)
 
 # Lista para armazenar o histórico
-historico = []
+historico_biorreator = []
 
-print("--- INICIANDO CONTROLE DO BIORREATOR ---")
 print(f"Temperatura Inicial Sorteada: {temperatura_atual:.2f} °C\n")
 
 # Calculamos quantos ciclos vão rodar (120 / 10 = 12 ciclos)
-total_ciclos = TEMPO_TOTAL // INTERVALO_LEITURA
+total_ciclos = tempo_total // intervalo_leitura
 
 # Loop de controle
 for ciclo in range(1, total_ciclos + 1):
@@ -27,23 +27,23 @@ for ciclo in range(1, total_ciclos + 1):
     data_str = agora.strftime("%Y-%m-%d")
     hora_str = agora.strftime("%H:%M:%S")
 
-    # Adiciona um erro aleatório no sensor (entre -0.5°C e +0.5°C)
-    erro_sensor = random.uniform(-0.5, 0.5)
+    # Adiciona um erro de variação aleatório e aceitável no sensor de temperatura ao ligar e desligar o resfriador (entre -0.5°C e +0.5°C)
+    erro_sensor_temperatura = random.uniform(-0.5, 0.5)
     temperatura_com_erro = temperatura_atual + erro_sensor
 
     print(
         f"Ciclo {ciclo}/{total_ciclos} | Horário: {hora_str} | Temp. Lida: {temperatura_com_erro:.2f} °C"
     )
 
-    # Lógica de controle do Biorreator (Atuadores: Resfriador ou Aquecedor)
+    # Lógica de controle do Biorreator (Atuadores: Resfriador)
     if temperatura_com_erro > SETPOINT:
-        print("  -> Status: Temperatura alta. LIGANDO O RESFRIADOR (Chiller)...")
-        temperatura_atual -= 1.0  # Resfria 1°C por ciclo
+        print("  -> Status: Temperatura alta.\nLIGANDO O RESFRIADOR")
+        temperatura_atual -= random.uniform(-1, 1)  # Resfria aleatóriamente em um intervalo de 1°C por ciclo
     elif temperatura_com_erro < SETPOINT:
         print(
-            "  -> Status: Temperatura baixa. LIGANDO O AQUECEDOR (Resistência)..."
+            "  -> Status: Temperatura baixa. DESLIGANDO RESFRIADOR"
         )
-        temperatura_atual += 1.0  # Aquece 1°C por ciclo
+        temperatura_atual += random.uniform(-1, 1)  # Aquece 1°C por ciclo
     else:
         print("  -> Status: Temperatura no setpoint. Sistema estabilizado.")
 
