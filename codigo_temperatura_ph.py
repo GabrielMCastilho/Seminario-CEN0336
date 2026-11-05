@@ -10,9 +10,9 @@ setpoint_ph = 7 # pH desejado para o crescimento bacteriano
 intervalo_leitura = 10  # segundos
 tempo_total = 120  # 2 minutos em segundos
 
-# 2. Variavel com o intervalo de temperatura inicial (18 a 30 °C)
+# 2. Variavel com o intervalo de temperatura inicial (18 a 30 °C) e pH inicial (6 a 7).
 
-# Sorteamos a temperatura inicial de inóculo ou inicio do funcionamento do controle automático do biorreator
+# Sorteamos a temperatura e pH inicial de inóculo (inicio do funcionamento do controle automático do biorreator)
 temperatura_atual = random.randint(15, 35)
 ph_atual = random.randint(6, 8)
 
@@ -20,6 +20,7 @@ ph_atual = random.randint(6, 8)
 historico_biorreator = []
 
 print(f"Temperatura Inicial Sorteada: {temperatura_atual:.2f} °C\n")
+print(f"pH Inicial Sorteado: {ph_atual:.2f} ºC\n")
 
 # Calculamos quantos ciclos vão rodar (120 / 10 = 12 ciclos)
 total_ciclos = tempo_total // intervalo_leitura
