@@ -1,0 +1,98 @@
+[
+    {
+        "data": "2026-11-05",
+        "hora": "20:15:43",
+        "leituras": {
+            "temperatura": "14.73 ºC",
+            "pH": 7.15
+        }
+    },
+    {
+        "data": "2026-11-05",
+        "hora": "20:15:43",
+        "leituras": {
+            "temperatura": "15.56 ºC",
+            "pH": 6.6
+        }
+    },
+    {
+        "data": "2026-11-05",
+        "hora": "20:15:43",
+        "leituras": {
+            "temperatura": "16.17 ºC",
+		    "pH": 6.48
+        }
+    },
+    {
+        "data": "2026-11-05",
+        "hora": "20:15:43",
+        "leituras": {
+            "temperatura": "16.69 ºC",
+            "pH": 6.86
+        }
+    },
+    {
+        "data": "2026-11-05",
+        "hora": "20:15:43",
+        "leituras": {
+            "temperatura": "17.78 ºC",
+            "pH": 7.3
+        }
+    },
+    {
+        "data": "2026-11-05",
+        "hora": "20:15:43",
+        "leituras": {
+            "temperatura": "17.28 ºC",
+            "pH": 6.59
+        }
+    },
+    {
+        "data": "2026-11-05",
+        "hora": "20:15:43",
+        "leituras": {
+            "temperatura": "18.23 ºC",
+            "pH": 6.7
+        }
+    },
+    {
+        "data": "2026-11-05",
+        "hora": "20:15:43",
+        "leituras": {
+            "temperatura": "17.53 ºC",
+            "pH": 7.2
+        }
+    },
+    {
+        "data": "2026-11-05",
+        "hora": "20:15:43",
+        "leituras": {
+            "temperatura": "19.17 ºC",
+            "pH": 6.69
+        }
+    },
+    {
+        "data": "2026-11-05",
+        "hora": "20:15:43",
+        "leituras": {
+            "temperatura": "19.44 ºC",
+            "pH": 7.13
+        }
+    },
+    {
+        "data": "2026-11-05",
+        "hora": "20:15:43",
+        "leituras": {
+            "temperatura": "19.91 ºC",
+            "pH": 6.71
+        }
+    },
+    {
+        "data": "2026-11-05",
+        "hora": "20:15:43",
+        "leituras": {
+            "temperatura": "20.08 ºC",
+            "pH": 6.99
+        }
+    }
+]
