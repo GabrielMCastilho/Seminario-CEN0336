@@ -67,21 +67,17 @@ for ciclo in range(1, total_ciclos + 1):
 
     print(f"Número de ciclos: {ciclo}/{total_ciclos} | Horário: {hora_str} | Temp. Lida: {temperatura_com_erro:.2f} °C | pH Lido: {ph_com_erro:.2f}")
 
-    # =========================================================================
-    # Lógica de controle do Biorreator (Atuadores: Resfriador / Aquecedor)
-    # =========================================================================
+    # Lógica de controle do Biorreator (Atuadores: Resfriador)
     if temperatura_com_erro > setpoint_temperatura:
         print("  -> Status: Temperatura alta.\nLIGANDO O RESFRIADOR")
         temperatura_atual -= random.uniform(0, 1)  # Resfria aleatóriamente
     elif temperatura_com_erro < setpoint_temperatura:
         print("  -> Status: Temperatura baixa.\nDESLIGANDO RESFRIADOR")
-        temperatura_atual += random.uniform(0, 1)  # Aquece 1°C por ciclo
+        temperatura_atual += random.uniform(0, 1)  # Aquece entre 0 e 1°C por ciclo
     else:
         print("  -> Status: Temperatura adequada. Sistema estabilizado.")
 
-    # =========================================================================
     # Lógica de controle do Biorreator (Atuadores: Bombas de pH)
-    # =========================================================================
     if ph_com_erro > setpoint_ph:
         print("  -> Status: Meio alcalino.\nINJETANDO 1 mL DE HCl")
         ph_atual -= random.uniform(0, 0.5)  # Abaixa aleatoriamente o pH
@@ -91,10 +87,8 @@ for ciclo in range(1, total_ciclos + 1):
     else:
         print("  -> Status: pH adequado. Sistema estabilizado.")
 
-    # =========================================================================
     # Lógica de controle do Biorreator (Atuadores: Bombas de Nutrientes)
-    # =========================================================================
-    # 1. Simulação de leitura dos sensores on-line com pequenos ruídos
+    # 1. Simulação de leitura dos sensores com pequenos ruídos
     carbono_com_erro = carbono_atual + random.uniform(-5, 5)
     nitrogenio_com_erro = nitrogenio_atual + random.uniform(-10, 10)
     fosforo_com_erro = fosforo_atual + random.uniform(-20, 20)
@@ -177,9 +171,7 @@ for ciclo in range(1, total_ciclos + 1):
     else:
         print("  -> Status Nutricional: Níveis adequados. Consumo celular ocorrendo normalmente.\n")
 
-    # =========================================================================
     # Salvar dados no histórico
-    # =========================================================================
     dados_ciclo = {
         "data": data_str,
         "hora": hora_str,
@@ -200,19 +192,34 @@ for ciclo in range(1, total_ciclos + 1):
     historico_biorreator.append(dados_ciclo)
 
 
-# =========================================================================
-# Geração do Arquivo JSON
-# =========================================================================
-nome_arquivo = 'registros_biorreator.json'
+# Espera 10 segundos antes da próxima leitura
+    #time.sleep(intervalo_leitura)
 
+# Criar a variável do arquivo json que será gerado
+nome_arquivo = 'registros_biorreator.json'
+# Abre (ou cria) o arquivo em modo de escrita ("w") com codificação UTF-8 (Garante que caracteres com acento (como °C, horário, etc.) não fiquem corrompidos.)
 if not os.path.exists(nome_arquivo):
-    print(f"Criando arquivo {nome_arquivo}")
-    with open(nome_arquivo, "w", encoding="utf-8") as arquivo:
+    print("Criando arquivo JSON")
+    with open(nome_arquivo, "w", encoding = "utf-8") as arquivo:
+    # Escreve a lista completa no arquivo formato JSON
+    # O "ensure_ascii=False" Permite salvar acentos e símbolos diretamente
+    # O "indent=4" adiciona recuo ao aquivo para tornar ele mais fácil de ler
         json.dump(historico_biorreator, arquivo, indent=4, ensure_ascii=False)
+
+    #Se quiser salvar novos dados em um arquivo pré-existente, executar esse código
+#else:
+#    print("Carregando dados no arquivo", nome_arquivo)
+#    with open(nome_arquivo, "r", encoding="utf-8") as arquivo:
+#        historico_biorreator = json.load(arquivo)
+
+# Se quiser sobreescrever um arquivo existente, executa esse código
 else:
-    print(f"Sobreescrevendo dados do arquivo {nome_arquivo}")
     with open(nome_arquivo, "w", encoding="utf-8") as arquivo:
+        print("Sobreescrevendo dados do arquivo", nome_arquivo)
         json.dump(historico_biorreator, arquivo, indent=4, ensure_ascii=False)
     
-# Exibe a lista final
+# Exibe a lista final com todos os dicionários salvos no arquivo json
 print("Leitura finalizada! O arquivo JSON foi gerado com sucesso com todos os parâmetros.")
+# Mostra como os dados estão aninhados
+for registro in historico_biorreator:
+    print(registro)
